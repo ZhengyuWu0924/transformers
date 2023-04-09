@@ -295,7 +295,7 @@ class Distiller:
             lengths: `torch.tensor(new_bs, new_seq_length)` - The updated lengths.
         """
         if not self.fp16 or len(lengths) < 8:
-            return x, lengths
+            return x.long(), lengths
 
         # number of sentences == 0 [8]
         bs1 = len(lengths)
@@ -324,7 +324,7 @@ class Distiller:
 
         assert x.size(0) % 8 == 0
         assert x.size(1) % 8 == 0
-        return x, lengths
+        return x.long(), lengths
 
     def train(self):
         """
